@@ -134,7 +134,7 @@ $(function() {
 				class="form_btn" style="width:80px; font-size: 80%;">
 			<span id="resMemberChk"></span>
 			</div>
-
+		 	
 			<div>
 			<label>비밀번호</label>
 			<input type="password" id="pwd" name="pwd" placeholder="pw">

@@ -32,7 +32,7 @@ public class AjaxController {
 
 	@RequestMapping(value="/idCheck",method=RequestMethod.GET, 
 			produces="application/json;charset=utf8")
-	public @ResponseBody String memberChk(HttpServletRequest req) {
+	public @ResponseBody int memberChk(HttpServletRequest req) {
 		JSONObject jsonObject = new JSONObject( );
 		
 		String userid = req.getParameter("userid");
@@ -44,6 +44,10 @@ public class AjaxController {
 		} catch (Exception e) {
 			e.getMessage( );
 		}
-		return jsonObject.toString( );
+		//return jsonObject.toString( );
+		
+		int result=memberDao.memberChk(userid);
+		
+		return result;
 	}
 }
