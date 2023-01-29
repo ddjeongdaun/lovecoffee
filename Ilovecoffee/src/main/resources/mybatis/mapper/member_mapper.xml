@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ilove.coffee.member.MemberDAO">
+
+	<insert id="insertMember" parameterType="com.ilove.coffee.member.MemberVO">
+		insert into member(userid, pwd, name, email, hp, zipcode, address, addressDetail, regdate)
+		values(#{userid}, #{pwd}, #{name}, #{email}, #{hp}, #{zipcode}, #{address}, #{addressDetail}, now())
+   	</insert>
+   	
+   	<update id="updateMember" parameterType="com.ilove.coffee.member.MemberVO">
+		update member
+		set pwd=#{pwd}, email=#{email}, hp=#{hp}, zipcode=#{zipcode},
+		address=#{address}, addressDetail=#{addressDetail}
+		where userid=#{userid}
+   	</update>
+
+	<select id="selectPwd" parameterType="String" resultType="String">
+		select pwd from member
+		where userid=#{userid}
+	</select>
+	
+	<select id="idCheck" parameterType="String" resultType="Integer">
+		select count(*) from member where userid=#{userid}
+	</select>
+	
+	<select id="checkLogin" parameterType="String" resultType="int">
+		select count(*) from member
+		where userid=#{userid} and pwd=#{pwd}
+	</select>
+	
+	<select id="selectByUserid" parameterType="string" resultType="com.ilove.coffee.member.MemberVO">
+      select * from member where userid=#{userid}
+   	</select>
+	
+	<select id="allMember" resultType="com.ilove.coffee.member.MemberVO">
+   		select * from member
+   	</select>
+   	
+</mapper>

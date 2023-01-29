@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ilove.coffee.admin.AdminDAO">
+
+	<insert id="insertAdmin" parameterType="com.ilove.coffee.admin.AdminVO">
+		insert into admin(userid, pwd, name, email)
+		values(#{userid}, #{pwd}, #{name}, #{email})
+   	</insert>
+   	
+   	<select id="selectById" parameterType="String" resultType="com.ilove.coffee.admin.AdminVO">
+   		select * from admin
+   		where userid=#{userid}
+   	</select>
+   	
+   	<select id="totalMember" resultType="int">
+   		select count(*) from member
+   	</select>
+   	
+   	<select id="totalOrder" resultType="int">
+   		select count(*) from myorder
+   	</select>
+   	
+   	<select id="totalProduct" resultType="int">
+   		select count(*) from product
+   	</select>
+	
+	<select id="totalOrderPrice" resultType="int">
+		select sum(totalPrice) from MyOrder
+	</select>
+
+	
+</mapper>

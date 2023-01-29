@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ilove.coffee.adminMember.AdminMemberDAO">
+
+	<select id="allMember" parameterType="string" resultType="com.ilove.coffee.member.MemberVO">
+      select * from member
+   	</select>
+	
+	<update id="passwordReset" parameterType="com.ilove.coffee.member.MemberVO">
+   		update member
+   		set pwd=#{pwd}
+   		where userid=#{userid}
+   	</update>
+   	
+</mapper>

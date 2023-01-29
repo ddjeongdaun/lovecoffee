@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ilove.coffee.cart.CartDao">
+
+	<select id="mycart" parameterType="String" resultType="com.ilove.coffee.cart.CartVO">
+		select p.productName, p.imageURL, p.price, c.*
+		from cart c, product p
+		where c.productNo = p.productNo
+		and customerId=#{userid}
+	</select>
+
+	<insert id="cartIn" parameterType="com.ilove.coffee.cart.CartVO">
+		insert into cart(customerId, productNo, quantity, regdate)
+		values(#{customerId}, #{productNo}, #{quantity}, now())
+	</insert>
+	
+	<update id="updateCart" parameterType="int">
+		update cart
+		set quantity=quantity+1
+		where productNo=#{productNo}
+	</update>
+	
+	<select id="checkProduct" parameterType="hashMap" resultType="int">
+		select count(*) from cart
+		where customerId=#{customerId}
+		and productNo=#{productNo}
+	</select>
+   	
+   	<delete id="deleteCart" parameterType="int">
+   		delete from cart
+   		where productNo=#{productNo}
+   	</delete>
+   	
+   	<update id="modifyCount" parameterType="com.ilove.coffee.cart.CartVO">
+   		update cart
+   		set quantity=#{quantity}
+   		where customerId=#{customerId}
+   		and productNo=#{productNo}
+   	</update>
+</mapper>
