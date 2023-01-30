@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ilove.coffee.member.MemberServiceImp;
+import com.ilove.coffee.member.MemberVO;
+
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -21,6 +24,7 @@ import lombok.RequiredArgsConstructor;
 public class CartController {
 
 	private final CartServiceImp service;
+	private final MemberServiceImp memberService;
 
 	@GetMapping("/cart")
 	public String cart(HttpSession session, Model model) {
@@ -98,9 +102,19 @@ public class CartController {
 		return mav;
 	}
 	
-	@RequestMapping("/cartUpdate")
-	public String updateCartPOST(HttpSession session, CartVO vo) {
-		service.modifyCount(vo);
-		return "redirect:/member/cart";
+	//주문페이지 호출
+	@GetMapping("/order")
+	public ModelAndView orderPage(HttpSession session) {
+		String userid=(String)session.getAttribute("userid_session");
+		
+		List<CartVO> list=service.mycart(userid);
+		MemberVO vo=memberService.selectByUserid(userid);
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("vo",vo);
+		mav.addObject("list",list);
+		mav.setViewName("/member/orderPage");
+		
+		return mav;
 	}
 }

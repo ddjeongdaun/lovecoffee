@@ -58,8 +58,19 @@ width: 160px;
 </tbody>
 </table>
 </div>
+<a class="quantity_modify_btn" data-productNo="${cart.productNo }">변경</a>
 <!-- div#wrap -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-<script src="/script/script.js"></script>
+<script src="/script/script.js">
+/*ajax 장바구니 수량 조절*/
+$(".quantity_modify_btn").onclick(function(){
+	var productNo = $(this).data("productNo");
+	var quantity = $(this).parent("td").find("input").val();
+	
+	$(".update_productNo").val(productNo);
+	$(".update_quantity").val(quantity);
+	$(".quantity_updateForm").submit();
+});
+</script>
 </body>
 </html>

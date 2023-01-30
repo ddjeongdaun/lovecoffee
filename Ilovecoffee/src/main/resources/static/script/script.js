@@ -11,10 +11,10 @@ function validate_userid(id){
 function idCheck(){
 	var userid=$('.id_input').val();
 	
-	if(!validate_userid(userid) || userid.length<3){
+	if(!validate_userid(userid) || userid.length<3 || userid == null || userid == ""){
 		alert("아이디는 문자나 숫자, 2글자 이상만 가능합니다.");
-          $("#userid").focus();
-          return;
+		$("#userid").focus();
+		return;
 	}
 	
 	var res="";

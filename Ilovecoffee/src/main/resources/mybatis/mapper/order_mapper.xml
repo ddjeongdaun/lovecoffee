@@ -3,10 +3,10 @@
 "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.ilove.coffee.order.OrderDAO">
-
-	<insert id="order" parameterType="hashMap">
-		insert into myorder(customerId, totalPrice, deliveryStatus, zipcode, address, addressDetail)
-		values(#{customerId}, #{totalPrice}, #{deliveryStatus}, #{zipcode}, #{address}, #{addressDetail})
+	
+	<insert id="orderDo" parameterType="com.ilove.coffee.order.MyOrderVO">
+		insert into myorder(customerId, totalPrice, deliveryStatus, zipcode, address, addressDetail, regdate)
+		values(#{customerId}, #{totalPrice}, #{deliveryStatus}, #{zipcode}, #{address}, #{addressDetail}, now())
 	</insert>
    	
    	<delete id="deleteOrder" parameterType="int">

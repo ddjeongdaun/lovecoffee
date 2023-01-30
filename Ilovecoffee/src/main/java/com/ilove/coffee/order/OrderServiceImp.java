@@ -8,6 +8,10 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class OrderServiceImp implements OrderService{
 	private final OrderDAO dao;
-	
+
+	@Override
+	public int orderDo(MyOrderVO vo) {
+		return dao.orderDo(vo);
+	}
 	
 }

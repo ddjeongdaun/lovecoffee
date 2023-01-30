@@ -51,18 +51,26 @@ function setDisplay(){
 	     <th>수량</th>
 	   </tr>
 	   
-		<c:if test="${empty dto }">
+		<c:if test="${empty list }">
 			<tr class="text-center">
 				<td colspan="5">주문할 상품이 없습니다.</td>
 			</tr>
 		</c:if>
 		
-		<c:if test="${!empty dto }">
-		<c:forEach var="order" items="${dto }">
+		<c:if test="${!empty list }">
+		<c:forEach var="cart" items="${list }">
+			
+			<td class="cart_info_td" style="padding: 0px;">
+				<input type="hidden" class="individual_price_input" value="${cart.price}">
+				<input type="hidden" class="individual_quantity_input" value="${cart.quantity}">
+				<input type="hidden" class="individual_totalPrice_input" value="${cart.price * cart.quantity}">
+				<input type="hidden" class="individual_productNo_input" value="${cart.productNo}">
+			</td>
+			
 			<tr style="text-align: center;">
-				<td>${order.productName }</td>
-				<td>${order.price }</td>
-				<td>${order.quantity }</td>
+				<td>${cart.productName }</td>
+				<td>${cart.price }</td>
+				<td>${cart.quantity }</td>
 			</tr>
 		</c:forEach>
 		</c:if>
@@ -87,13 +95,29 @@ function setDisplay(){
 		<hr>
 			<span style="font-weight: border;">Total</span>
 		<hr>
-			<span><fmt:formatNumber pattern="#,###" value="${total }"/> 원</span>
+			<span class="totalPrice_span" name="totalPrice">0</span> 원
 		<hr>
-		<p class="text-center"><a href="/member/order" class="btn btn-primary py-3 px-4">order</a></p>
+		<p class="text-center"><a href="/member/doOrder" class="btn btn-primary py-3 px-4">order</a></p>
 	</div>
 
 </div>
 <!-- 실제 작업 공간 끝 -->
+<script type="text/javascript">
+$(document).ready(function(){
+	setTotal();
+});
 
+/*총 합계 function*/
+function setTotal(){
+	var totalPrice=0;
+	
+	$(".cart_info_td").each(function(index, element){
+		totalPrice += parseInt($(element).find(".individual_totalPrice_input").val());
+	});
+	
+	/* 가격 pattern/ Javscript Number 객체의 toLocaleString() */
+	$(".totalPrice_span").text(totalPrice.toLocaleString());
+}
+</script>
 <!-- footer -->
 <%@ include file="../inc/main_bottom.jsp"%>

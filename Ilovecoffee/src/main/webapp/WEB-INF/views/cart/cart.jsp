@@ -57,18 +57,13 @@
 					<input type="hidden" class="individual_productNo_input" value="${cart.productNo}">
 				</td>
 				
-				<td><a href="/member/cart/delete?productNo=${cart.productNo }">X</a></td>
-				<td class="image-prod"><div class="img" style="background-image:url(img/${cart.imageURL });"></div></td>
-				<td>${cart.productName }</td>
-				<td class="cart_price">${cart.price }</td>
-				<td>
-					<div class="quantity_div">
-						<input type="text" value="${cart.quantity}" class="quantity_input" style="width: 40px; text-align: center;">
-						<button class="plusBtn">+</button>
-						<button class="minusBtn">-</button>
-					</div>
-					<a class="quantity_modify_btn" data-productNo="${cart.productNo }">변경</a>
-				</td>
+					<td><a href="/member/cart/delete?productNo=${cart.productNo }">X</a></td>
+					<td class="image-prod"><div class="img" style="background-image:url(/img/${cart.imageURL });"></div></td>
+					<td>${cart.productName }</td>
+					<td class="cart_price">${cart.price }</td>
+					<td>
+					<input type="text" value="${cart.quantity}" name="quantity" style="width: 40px; text-align: center;">
+					</td>
 			</tr>
 		</c:forEach>
 		</c:if>
@@ -81,59 +76,14 @@
 		<hr>
 			<span class="totalPrice_span">0</span> 원
 		<hr>
-		<p class="text-center"><input type="button" onclick="order()" class="btn btn-primary py-3 px-4" value="Order"></p>
+		<p class="text-center">
+		<input type="button" onclick="location.href='/member/order'" 
+				class="btn btn-primary py-3 px-4" value="Order"></p>
 	</div>
-	
-	<!-- 수량 조정 form -->
-	<form action="/cartUpdate" method="post" class="quantity_update_form">
-		<input type="hidden" name="productNo" class="update_productNo">
-		<input type="hidden" name="quantity" class="update_quantity">
-	</form>	
-
 </div>
 <!-- 실제 작업 공간 끝 -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-<script type="text/javascript">
-
-//수량 조정 (+/-)
-$(".plusBtn").on("click", function(){
-	let quantity = $(this).parent("div").find("input").val();
-	$(this).parent("div").find("input").val(++quantity);
-});
-
-$(".minusBtn").on("click", function(){
-	let quantity = $(this).parent("div").find("input").val();
-	if(quantity > 1){
-		$(this).parent("div").find("input").val(--quantity);
-	}
-});
-
-//수량 수정 버튼
-$(".quantity_modify_btn").on("click", function(){
-	let productNo = $(this).data("productno");
-	let quantity = $(this).parent("td").find("input").val();
-	
-	$(".update_productNo").val(productNo);
-	$(".update_quantity").val(quantity);
-	$(".quantity_updateForm").submit();
-});
-
-$(document).ready(function(){
-	setTotal();
-});
-
-/*총 합계 function*/
-function setTotal(){
-	var totalPrice=0;
-	
-	$(".cart_info_td").each(function(index, element){
-		totalPrice += parseInt($(element).find(".individual_totalPrice_input").val());
-	});
-	
-	/* 가격 pattern/ Javscript Number 객체의 toLocaleString() */
-	$(".totalPrice_span").text(totalPrice.toLocaleString());
-}
-
-</script>
+<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+	<script src="/script/cartScript.js"></script>
 <!-- footer -->
 <%@ include file="../inc/main_bottom.jsp"%>
