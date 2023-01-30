@@ -1,5 +1,7 @@
 package com.ilove.coffee.member;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -14,6 +16,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ilove.coffee.order.MyOrderVO;
+import com.ilove.coffee.order.OrderServiceImp;
+
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -22,7 +27,8 @@ import lombok.RequiredArgsConstructor;
 public class MemberController {
 	private static final Logger logger=LoggerFactory.getLogger(MemberController.class);
 	
-	private final MemberService memberservice;
+	private final MemberServiceImp memberservice;
+	private final OrderServiceImp orderservice;
 	
 	@Autowired
 	PasswordEncoder passwordEncoder;
@@ -184,4 +190,14 @@ public class MemberController {
 		return mav;
 	}
 	
+	@RequestMapping("/myorder")
+	public ModelAndView myorder(HttpSession session) {
+		String userid=(String)session.getAttribute("userid_session");
+		List<MyOrderVO> list=orderservice.myorder(userid);
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("list", list);
+		mav.setViewName("/member/myorder");
+		return mav;
+	}
 }

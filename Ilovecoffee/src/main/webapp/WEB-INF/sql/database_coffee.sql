@@ -16,14 +16,6 @@ addressDetail		char(100)						,		#상세주소
 regdate				datetime	default CURRENT_TIMESTAMP	#회원가입일
 );
 
-select * from zipcode;
-alter table member
-change column pwd pwd char(255);
-select * from member;
-commit;
-
-insert into member(userid, pwd, name, email, hp, zipcode, address, addressDetail, regdate)
-values('zzz','zzz','zzz','010-0000-0000', 'otl789@naver.com');
 
 #관리자
 create table admin(
@@ -33,9 +25,6 @@ pwd					char(255)	not	null	,
 name				char(30)	not null	,
 email				char(100)	not	null
 );
-
-alter table admin
-change column pwd pwd char(255);
 
 #우편번호
 create table zipcode(
@@ -67,8 +56,6 @@ regdate					datetime	default current_timestamp,	#상품등록일
 imageURL				char(50)								#이미지url
 );
 
-drop table product;
-
 insert into product(categoryNo, productName, price, explains, regdate, imageURL)
 values(1,'아메리카노','4000','깊고 진한 커피풍미를 느낄 수 있는 아이스 아메리카노',now(),'icedAmericano.jpg');
 insert into product(categoryNo, productName, price, explains, regdate, imageURL)
@@ -84,7 +71,7 @@ orderNo					int			primary key		auto_increment,	#번호
 customerId				char(30)	not null,						#회원아이디
 foreign key	(customerId) references member(userid),
 totalPrice				int					,						#총가격
-deliveryStatus			char(20)			,						#배송현황
+deliveryStatus			int					,						#배송현황 (1:배송/픽업전, 2:배송/픽업 진행중 3.배송/픽업완료)
 zipcode					char(5),									#우편번호
 address					char(200),									#기본주소
 addressDetail			char(100),									#상세주소
@@ -100,19 +87,6 @@ productNo				int			not null,						#상품번호
 foreign key (productNo)	references product(productNo),
 quantity				int			not	null,						#수량
 regdate					datetime	default current_timestamp		#등록일
-);
-
-#게시판
-create table board(
-no					int 		primary key		auto_increment		,
-name				char(20)	not	null							,
-pwd					char(20)	not	null							,
-title				char(80)	not	null							,
-email				char(80)										,
-regdate				datetime	default current_timestamp			,
-readCnt				int			default	0							,
-fileName			char(50)	,
-fileSize			int
 );
 
 commit;

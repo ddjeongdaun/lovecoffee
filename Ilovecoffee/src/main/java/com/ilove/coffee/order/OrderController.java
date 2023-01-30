@@ -69,7 +69,7 @@ public class OrderController {
 		}
 		
 		order.setCustomerId(userid);
-		order.setDeliveryStatus("배송전");
+		order.setDeliveryStatus(1);
 		
 		List<CartVO> list=cartService.mycart(userid);
 		int total=0;
@@ -84,10 +84,36 @@ public class OrderController {
 		String msg="주문 중 에러가 발생하였습니다.";
 		String url="/member/cart";
 		if(cnt>0) {
+			cartService.emptyCart(userid);	//장바구니 비우기
 			msg="주문이 완료되었습니다.";
-			url="/member/mypage";
+			url="/member/myorder";
 		}
 		ModelAndView mav = new ModelAndView();
+		mav.addObject("msg",msg);
+		mav.addObject("url",url);
+		mav.setViewName("/common/message");
+		return mav;
+	}
+	
+	@RequestMapping("/orderDelete")
+	public ModelAndView orderDelete(HttpSession session, int orderNo) {
+		ModelAndView mav = new ModelAndView();
+		
+		MyOrderVO vo=service.selectByNo(orderNo);
+		int deliveryStatus=vo.getDeliveryStatus();
+		
+		String msg="주문삭제 중 에러 발생!";
+		String url="/member/myorder";
+		
+		if(deliveryStatus == 1) {
+			int cnt=service.deleteOrder(orderNo);
+			if(cnt>0) {
+				msg="주문 취소 처리 되었습니다.";
+			}
+		}else {
+			msg="해당 주문은 배송/픽업 진행중입니다.";
+		}
+		
 		mav.addObject("msg",msg);
 		mav.addObject("url",url);
 		mav.setViewName("/common/message");

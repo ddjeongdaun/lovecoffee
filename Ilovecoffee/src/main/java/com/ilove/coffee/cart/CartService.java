@@ -10,4 +10,5 @@ public interface CartService {
 	int deleteCart(int productNo);
 	int checkProduct(HashMap<String, Object> map);
 	int modifyCount(CartVO vo);
+	int emptyCart(String customerId);
 }

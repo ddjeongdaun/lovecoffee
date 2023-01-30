@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../inc/main_top.jsp" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <head>
 </head>
 <!-- 메인헤더 -->
@@ -24,20 +25,34 @@
 		  <th>주문번호</th>
 		  <th>가격</th>
 		  <th>주문 현황</th>
+		  <th>주문 취소</th>
 		</tr>
 		
 		<c:if test="${empty list }">
 			<tr class="text-center">
-				<td colspan="3">주문내역이 없습니다.</td>
+				<td colspan="4">주문내역이 없습니다.</td>
 			</tr>
 		</c:if>
 		
 		<c:if test="${!empty list }">
 		<c:forEach var="order" items="${list }">
-			<tr class="text-center">
-				<td>${order.orderNo }</td>
-				<td>${order.totalPrice }</td>
-				<td>${order.deliverystatuss }</td>
+			<tr style="text-align: center;">
+					<td>${order.orderNo }</td>
+					<td><fmt:formatNumber value="${order.totalPrice }" pattern="#,###"/>원</td>
+					<td>
+						<c:if test="${order.deliveryStatus == 1 }">
+							배송/픽업 준비중
+						</c:if>
+						<c:if test="${order.deliveryStatus == 2 }">
+							배송/픽업 진행중
+						</c:if>
+						<c:if test="${order.deliveryStatus == 3 }">
+							배송/픽업 완료
+						</c:if>
+					</td>
+					<td>
+					<a href="/member/orderDelete?orderNo=${order.orderNo }" style="font-size: 90%;">주문취소</a>
+					</td>
 			</tr>
 		</c:forEach>
 		</c:if>

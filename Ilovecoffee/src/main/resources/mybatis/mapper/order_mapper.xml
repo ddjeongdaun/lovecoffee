@@ -10,8 +10,18 @@
 	</insert>
    	
    	<delete id="deleteOrder" parameterType="int">
-   		delete myorder
+   		delete from myorder
    		where orderNo=#{orderNo}
    	</delete>
+   	
+   	<select id="myorder" parameterType="String" resultType="com.ilove.coffee.order.MyOrderVO">
+   		select * from myorder
+   		where customerId=#{customerId}
+   	</select>
+   	
+   	<select id="selectByNo" parameterType="int" resultType="com.ilove.coffee.order.MyOrderVO">
+   		select * from myorder
+   		where orderNo=#{orderNo} 
+   	</select>
    	
 </mapper>

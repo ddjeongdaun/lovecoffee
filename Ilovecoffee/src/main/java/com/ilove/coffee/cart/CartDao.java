@@ -19,4 +19,5 @@ public interface CartDao {
 	int deleteCart(int productNo);
 	//장바구니 수량 업데이트
 	int modifyCount(CartVO vo);
+	int emptyCart(String customerId);
 }

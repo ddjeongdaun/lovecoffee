@@ -9,7 +9,7 @@ public class MyOrderVO {
 	private int orderNo;
 	private String customerId;
 	private int totalPrice;
-	private String deliveryStatus;
+	private int deliveryStatus;
 	private String zipcode;
 	private String address;
 	private String addressDetail;

@@ -39,4 +39,9 @@
    		where customerId=#{customerId}
    		and productNo=#{productNo}
    	</update>
+   	
+   	<delete id="emptyCart" parameterType="String">
+   		delete from cart
+   		where customerId=#{customerId}
+   	</delete>
 </mapper>

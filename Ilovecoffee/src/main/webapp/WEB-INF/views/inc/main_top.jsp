@@ -59,7 +59,6 @@
                 <div class="navbar-nav ml-auto p-4">
                     <a href="/" class="nav-item nav-link active">Home</a>
                     <a href="/shop" class="nav-item nav-link">Shop</a>
-                    <a href="/about" class="nav-item nav-link">About</a>
                     
                     <c:if test="${empty userid_session }">
                     <a href="/member/login" class="nav-item nav-link">Login</a>
@@ -68,6 +67,7 @@
                     <c:if test="${!empty userid_session }">
                     <a href="/member/logout" class="nav-item nav-link">Logout</a>
                     <a href="/member/mypage" class="nav-item nav-link">Mypage</a>
+                    <a href="/member/myorder" class="nav-item nav-link">Order</a>
                     <a href="/member/cart" class="nav-item nav-link">Cart</a>
                     </c:if>
                 </div>

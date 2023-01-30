@@ -42,5 +42,10 @@ public class CartServiceImp implements CartService{
 	public int modifyCount(CartVO vo) {
 		return dao.modifyCount(vo);
 	}
+
+	@Override
+	public int emptyCart(String customerId) {
+		return dao.emptyCart(customerId);
+	}
 	
 }
