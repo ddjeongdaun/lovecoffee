@@ -9,4 +9,5 @@ import com.ilove.coffee.order.MyOrderVO;
 @Mapper
 public interface AdminOrderDAO {
 	List<MyOrderVO> allOrder();
+	int orderstatusUpdate(int orderNo);
 }

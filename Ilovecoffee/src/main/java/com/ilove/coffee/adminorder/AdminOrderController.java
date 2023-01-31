@@ -24,4 +24,22 @@ public class AdminOrderController {
 		model.addAttribute("list", list);
 		return "/admin/adminOrder/manageOrder";
 	}
+	
+	@GetMapping("/orderstatusUpdate")
+	public ModelAndView orderstatusUpdate(int orderNo) {
+		ModelAndView mav = new ModelAndView();
+		
+		int cnt=service.orderstatusUpdate(orderNo);
+		
+		String msg="주문 완료 처리 중 에러가 발생하였습니다.",
+				url="/admin/manageOrder";
+		if(cnt>0) {
+			msg=orderNo+"번 주문을 주문완료 처리하였습니다.";
+		}
+		
+		mav.addObject("msg",msg);
+		mav.addObject("url",url);
+		mav.setViewName("/common/message");
+		return mav;
+	}
 }

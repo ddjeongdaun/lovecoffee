@@ -17,5 +17,10 @@ public class AdminOrderServiceImp implements AdminOrderService{
 	public List<MyOrderVO> allOrder() {
 		return dao.allOrder();
 	}
+
+	@Override
+	public int orderstatusUpdate(int orderNo) {
+		return dao.orderstatusUpdate(orderNo);
+	}
 	
 }

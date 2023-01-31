@@ -4,8 +4,14 @@
 
 <mapper namespace="com.ilove.coffee.adminorder.AdminOrderDAO">
 
-	<select id="allOrder" resultType="com.ilove.coffee.order.MyOrderVO">
-		select * from myorder
+   	<select id="allOrder" resultType="com.ilove.coffee.order.MyOrderVO">
+   		select * from myorder
    	</select>
+   	
+   	<update id="orderstatusUpdate" parameterType="int">
+   		update myorder
+   		set deliveryStatus = 3
+   		where orderNo = #{orderNo}
+   	</update>
    	
 </mapper>

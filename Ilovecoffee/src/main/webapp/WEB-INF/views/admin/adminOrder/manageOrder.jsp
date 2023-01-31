@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../admin_top.jsp" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!-- 실제작업 공간 -->
 <div class="container-fluid pt-4 px-4">
@@ -16,12 +17,13 @@
                         <th scope="col">총 가격</th>
                         <th scope="col">배송/픽업 현황</th>
                         <th scope="col">주문일자</th>
+                        <th scope="col">배송/픽업 처리</th>
                     </tr>
                 </thead>
                 <tbody>
                     	<c:if test="${empty list }">
                     		<tr style="text-align: center;">
-                    			<td colspan="5">조회되는 주문이 없습니다.</td>
+                    			<td colspan="6">조회되는 주문이 없습니다.</td>
                     		</tr>
                     	</c:if>
                     	
@@ -31,8 +33,22 @@
 			                        <td>${orlist.orderNo }</td>
 			                        <td>${orlist.customerId }</td>
 			                        <td>${orlist.totalPrice }</td>
-			                        <td>${orlist.deliveryStatus }</td>
-			                        <td>${orlist.regdate }</td>
+			                        <td>
+			                        <c:if test="${orlist.deliveryStatus eq 1}">
+			                        	픽업/배송전
+			                        </c:if>
+			                        <c:if test="${orlist.deliveryStatus eq 2}">
+			                        	픽업/배송 준비중
+			                        </c:if>
+			                        <c:if test="${orlist.deliveryStatus eq 3}">
+			                        	픽업/배송 완료
+			                        </c:if>
+			                        </td>
+			                        <td>
+			                        <fmt:formatDate value="${orlist.regdate }" pattern="yyyy-MM-dd"/></td>
+			                        <td>
+			                        <a href="/admin/orderstatusUpdate?orderNo=${orlist.orderNo }">배송완료처리</a>
+			                        </td>
 			                    </tr>
 	                    	</c:forEach>
                     	</c:if>
