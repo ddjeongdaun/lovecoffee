@@ -25,6 +25,7 @@ public class AdminOrderController {
 		return "/admin/adminOrder/manageOrder";
 	}
 	
+	//배송/주문 현황 완료 처리
 	@GetMapping("/orderstatusUpdate")
 	public ModelAndView orderstatusUpdate(int orderNo) {
 		ModelAndView mav = new ModelAndView();
